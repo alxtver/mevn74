@@ -42,6 +42,7 @@ router.post('/register', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
+  console.log(req.body);
   User.findOne({
       username: req.body.username
     })
@@ -56,20 +57,25 @@ router.post('/login', async (req, res) => {
           let token = jwt.sign(payload, process.env.SECRET_KEY, {
             expiresIn: 1440
           })
+          console.log(token);
           res.send(token)
         } else {
+          console.log('User does not exist');
           res.json({
             error: 'User does not exist'
           })
         }
       } else {
-        res.json({
-          error: 'User does not exist'
+        console.log('User does not exist');
+        res.status(400).json({
+          message: "User does not exist"
         })
       }
     })
     .catch(err => {
-      res.send('error: ' + err)
+      res.status(400).json({
+        message: "User does not exist"
+      })
     })
 })
 
