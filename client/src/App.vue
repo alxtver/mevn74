@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar key="Key" />
+    <Navbar />
 
     <router-view />
   </div>
@@ -8,8 +8,12 @@
 
 <script>
 import Navbar from "@/components/Navbar";
-export default {
-  name: "app",
+export default {  
+  data() {
+    return {
+      auth: "",
+    };
+  },
   components: {
     Navbar,
   },
